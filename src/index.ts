@@ -2,10 +2,14 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
+import dotenv from "dotenv"
+
 import { schema } from "./schema";
 import { createContext } from "./context";
 
 async function startApolloServer() {
+  // Run env files
+  dotenv.config()
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
