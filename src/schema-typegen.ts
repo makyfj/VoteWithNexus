@@ -24,6 +24,16 @@ export interface NexusGenInputs {
   CreateBoardItemInput: { // input type
     content: string; // String!
   }
+  LoginInput: { // input type
+    email: string; // String!
+    password: string; // String!
+  }
+  SignupInput: { // input type
+    email: string; // String!
+    firstName: string; // String!
+    lastName: string; // String!
+    password: string; // String!
+  }
   UserWhereUniqueInput: { // input type
     id: string; // ID!
   }
@@ -45,6 +55,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthPayload: { // root type
+    accessToken: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Board: { // root type
     description: string; // String!
     id: string; // ID!
@@ -80,6 +94,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthPayload: { // field return type
+    accessToken: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Board: { // field return type
     description: string; // String!
     id: string; // ID!
@@ -94,7 +112,11 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createBoard: NexusGenRootTypes['Board'] | null; // Board
     createBoardItem: NexusGenRootTypes['Item'] | null; // Item
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    logout: NexusGenRootTypes['User']; // User!
+    refreshAuth: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     removeBoardItem: NexusGenRootTypes['Item'] | null; // Item
+    signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     voteItem: NexusGenRootTypes['Vote'] | null; // Vote
   }
   Query: { // field return type
@@ -120,6 +142,10 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthPayload: { // field return type name
+    accessToken: 'String'
+    user: 'User'
+  }
   Board: { // field return type name
     description: 'String'
     id: 'ID'
@@ -134,7 +160,11 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createBoard: 'Board'
     createBoardItem: 'Item'
+    login: 'AuthPayload'
+    logout: 'User'
+    refreshAuth: 'AuthPayload'
     removeBoardItem: 'Item'
+    signup: 'AuthPayload'
     voteItem: 'Vote'
   }
   Query: { // field return type name
@@ -168,8 +198,14 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['CreateBoardItemInput']; // CreateBoardItemInput!
       where: NexusGenInputs['BoardWhereUniqueInput']; // BoardWhereUniqueInput!
     }
+    login: { // args
+      input: NexusGenInputs['LoginInput']; // LoginInput!
+    }
     removeBoardItem: { // args
       where: NexusGenInputs['BoardWhereUniqueInput']; // BoardWhereUniqueInput!
+    }
+    signup: { // args
+      input: NexusGenInputs['SignupInput']; // SignupInput!
     }
     voteItem: { // args
       where: NexusGenInputs['VoteItemWhereUniqueInput']; // VoteItemWhereUniqueInput!

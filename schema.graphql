@@ -2,6 +2,11 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  accessToken: String!
+  user: User!
+}
+
 type Board {
   description: String!
   id: ID!
@@ -28,10 +33,19 @@ type Item {
   votes: [Vote!]!
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createBoard(input: CreateBoardInput!): Board
   createBoardItem(input: CreateBoardItemInput!, where: BoardWhereUniqueInput!): Item
+  login(input: LoginInput!): AuthPayload!
+  logout: User!
+  refreshAuth: AuthPayload!
   removeBoardItem(where: BoardWhereUniqueInput!): Item
+  signup(input: SignupInput!): AuthPayload!
   voteItem(where: VoteItemWhereUniqueInput!): Vote
 }
 
@@ -40,6 +54,13 @@ type Query {
   boards: [Board!]
   user(where: UserWhereUniqueInput!): User
   users: [User!]
+}
+
+input SignupInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
 }
 
 type User {
